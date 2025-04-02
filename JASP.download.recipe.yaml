@@ -1,0 +1,25 @@
+Comment: Created with Recipe Robot v2.3.2 (https://github.com/homebysix/recipe-robot)
+Description: Downloads the latest version of JASP.
+Identifier: com.github.Justinbmac.download.JASP
+Input:
+  NAME: JASP
+MinimumVersion: '2.3'
+Process:
+- Arguments:
+    asset_regex: .*\.dmg$
+    github_repo: jasp-stats/jasp-desktop
+  Processor: GitHubReleasesInfoProvider
+- Arguments:
+    filename: '%NAME%-%version%.dmg'
+  Processor: URLDownloader
+- Processor: EndOfCheckPhase
+- Arguments:
+    input_path: '%pathname%/JASP.app'
+    requirement: identifier "org.jaspstats.jasp" and anchor apple generic and certificate
+      1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13]
+      /* exists */ and certificate leaf[subject.OU] = AWJJ3YVK9B
+  Processor: CodeSignatureVerifier
+- Arguments:
+    input_plist_path: '%pathname%/JASP.app/Contents/Info.plist'
+    plist_version_key: CFBundleShortVersionString
+  Processor: Versioner
