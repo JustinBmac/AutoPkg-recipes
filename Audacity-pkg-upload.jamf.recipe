@@ -15,7 +15,7 @@
 		<key>PKG_CATEGORY</key>
 		<string>Testing</string> <!-- Or your desired package category -->
 		<key>POLICY_NAME</key>
-		<string>Audacity(Self Service)</string> <!-- CRITICAL: Exact name of your existing policy, no space -->
+		<string>Audacity(Self Service)</string> <!-- CRITICAL: Exact name of your existing policy, no space-->
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.3</string>
