@@ -3,17 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>Comment</key>
-	<string>Created with Recipe Robot v2.3.2 (https://github.com/homebysix/recipe-robot)</string>
+	<string>Created with Recipe Robot v2.3.2 (https://github.com/homebysix/recipe-robot). Modified to update an existing Jamf policy.</string>
 	<key>Description</key>
-	<string>Downloads the latest version of Audacity and uploads the package to Jamf.</string>
+	<string>Downloads the latest version of Audacity, uploads the package to Jamf, and updates the existing 'Audacity(Self Service)' policy.</string>
 	<key>Identifier</key>
 	<string>com.github.Justinbmac.jamf.Audacity</string>
 	<key>Input</key>
 	<dict>
-		<key>CATEGORY</key>
-		<string>Testing</string>
 		<key>NAME</key>
 		<string>Audacity</string>
+		<key>PKG_CATEGORY</key>
+		<string>Testing</string> <!-- Or your desired package category -->
+		<key>POLICY_NAME</key>
+		<string>Audacity(Self Service)</string> <!-- CRITICAL: Exact name of your existing policy, no space -->
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.3</string>
@@ -25,7 +27,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>category_name</key>
-				<string>%CATEGORY%</string>
+				<string>%PKG_CATEGORY%</string>
 			</dict>
 			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader</string>
@@ -34,11 +36,28 @@
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_category</key>
-				<string>%CATEGORY%</string>
+				<string>%PKG_CATEGORY%</string>
 			</dict>
 			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfPackageUploader</string>
 		</dict>
+		<!-- Processor to update the existing policy -->
+		<dict>
+			<key>Processor</key>
+			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>policy_name</key>
+				<string>%POLICY_NAME%</string>
+				<key>replace_policy</key>
+				<true/>
+				<!-- No 'icon' key is provided, so the existing policy icon will not be changed by this recipe. -->
+			</dict>
+		</dict>
+        <dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.recipes.postprocessors/LastRecipeRunResult</string>
+        </dict>
 	</array>
 </dict>
 </plist>
