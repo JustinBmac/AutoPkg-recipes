@@ -35,7 +35,7 @@
 Version: %version%
 Category: %PKG_CATEGORY%</string>
 		<key>SELFSERVICE_ICON</key>
-		<string>Audacity.png</string> <!-- Make sure this icon exists in Jamf > Self Service Icons -->
+		<string>Audacity Icon.jpeg</string> <!-- Make sure this icon exists in Jamf > Self Service Icons -->
 		<key>INSTALL_BUTTON_TEXT</key>
 		<string>Install</string>
 		<key>REINSTALL_BUTTON_TEXT</key>
