@@ -18,7 +18,7 @@
 
 		<!-- Policy Template and Naming -->
 		<key>POLICY_TEMPLATE_PATH</key>
-		<string>GenericSelfServicePolicyTemplate.xml</string>
+		<string>SelfServicePolicyTemplate.xml</string>
 		<key>POLICY_NAME</key>
 		<string>Audacity(Self Service)</string>
 		<key>POLICY_CATEGORY_NAME</key>
