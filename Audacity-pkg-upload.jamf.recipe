@@ -14,7 +14,7 @@
 		<key>NAME</key>
 		<string>Audacity</string>
 		<key>PKG_CATEGORY</key>
-		<string>Testing</string> <!-- Category for the package in Jamf -->
+		<string>Autopkg Recipes</string> <!-- Category for the package in Jamf -->
 
 		<!-- Policy Template and Naming -->
 		<key>POLICY_TEMPLATE_PATH</key>
