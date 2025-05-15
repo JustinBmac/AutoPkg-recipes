@@ -137,7 +137,7 @@ Category: %PKG_CATEGORY%</string>
 				<key>computergroup_name</key>
 				<string>%SCOPE_GROUP_NAME%</string>
 				<key>replace_group</key> <string>False</string>
-				<! -- <key>computergroup_template</key><string>StaticGroupTemplate.xml</string> -->
+				
 			</dict>
 		</dict>
 		-->
