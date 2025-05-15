@@ -41,7 +41,7 @@ Category: %PKG_CATEGORY%</string>
 		<key>REINSTALL_BUTTON_TEXT</key>
 		<string>Reinstall</string>
 		<key>FEATURE_ON_MAIN_PAGE</key>
-		<string>false</string> <!-- true or false -->
+		<string>true</string> <!-- true or false -->
 		<key>SELFSERVICE_NOTIFICATION_TYPE</key>
 		<string>None</string> <!-- None or Self Service -->
 		<key>SELFSERVICE_NOTIFICATION_SUBJECT</key>
@@ -51,7 +51,7 @@ Category: %PKG_CATEGORY%</string>
 
 		<!-- Policy Execution Settings -->
 		<key>POLICY_FREQUENCY</key>
-		<string>Once per computer</string>
+		<string>Ongoing</string>
 		<key>POLICY_TRIGGER_CHECKIN</key>
 		<string>false</string>
 		<key>POLICY_TRIGGER_ENROLLMENT</key>
@@ -65,9 +65,9 @@ Category: %PKG_CATEGORY%</string>
 
 		<!-- Scope -->
 		<key>POLICY_SCOPE_ALL_COMPUTERS</key>
-		<string>false</string>
+		<string>true</string>
 		<key>SCOPE_GROUP_NAME</key>
-		<string>Testing</string> <!-- Target group for testing, e.g., "Testing" or "Audacity Testers" -->
+		<string></string> <!-- Target group for testing, e.g., "Testing" or "Audacity Testers" -->
 		<key>EXCLUSION_GROUP_NAME</key>
 		<string></string> <!-- Optional: Name of an exclusion group -->
 
