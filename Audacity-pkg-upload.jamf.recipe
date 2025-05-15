@@ -22,7 +22,7 @@
 		<key>POLICY_NAME</key>
 		<string>Audacity(Self Service)</string>
 		<key>POLICY_CATEGORY_NAME</key>
-		<string>Self Service Software</string> <!-- Category for the policy itself -->
+		<string>App Install - Self Service</string> <!-- Category for the policy itself -->
 		<key>POLICY_SITE_NAME</key>
 		<string>-1</string> <!-- -1 for "None", or specify site name -->
 
