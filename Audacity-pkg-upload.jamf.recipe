@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Comment</key>
-	<string>Manages Audacity package, Smart Group, and Policy in Jamf.</string>
+	<string>Manages Audacity package and Policy in Jamf.</string>
 	<key>Description</key>
-	<string>Downloads Audacity, uploads pkg, creates/updates 'Needs Update' Smart Group, and creates/updates 'Audacity(Self Service)' policy.</string>
+	<string>Downloads Audacity, uploads pkg, and creates/updates 'Audacity(Self Service)' policy.</string>
 	<key>Identifier</key>
 	<string>com.github.Justinbmac.jamf.Audacity</string>
 	<key>Input</key>
@@ -15,34 +15,21 @@
 		<string>Audacity</string>
 		<key>PKG_CATEGORY</key>
 		<string>Autopkg Recipes</string>
-		<key>APPLICATION_TITLE</key>
-		<string>Audacity.app</string> <!-- Exact app bundle name for inventory -->
 
 		<!-- Policy Details -->
 		<key>POLICY_TEMPLATE_PATH</key>
-		<string>SelfServiceTemplate.xml</string> <!-- Using your chosen simple template -->
+		<string>NoPkgID_PolicyTemplate.xml</string> <!-- Using your simplified template -->
 		<key>POLICY_NAME</key>
 		<string>Audacity(Self Service)</string>
-		<key>POLICY_CATEGORY_NAME</key> <!-- For the Policy's category -->
+		<key>POLICY_CATEGORY</key> <!-- Matches placeholder in your template -->
 		<string>App Install - Self Service</string>
-		<key>POLICY_SITE_NAME</key> <!-- Used by Policy and Smart Group -->
-		<string>-1</string> <!-- -1 for "None", or specify site name -->
-		<key>POLICY_SCOPE_GROUP_NAME</key> <!-- Was GROUP_NAME in your simple template -->
+		<key>GROUP_NAME</key> <!-- Matches placeholder in your template for policy scope -->
 		<string>Testing</string>
 
 		<!-- Self Service Details for Policy -->
-		<key>SELFSERVICE_DESCRIPTION</key>
+		<key>SELF_SERVICE_DESCRIPTION</key>
 		<string>Installs Audacity, a free audio editor. Version: %version%.</string>
-		<!-- SELFSERVICE_ICON would be needed if your NoPkgID_PolicyTemplate.xml had it -->
-
-		<!-- Smart Group Details -->
-		<key>SMART_GROUP_TEMPLATE_PATH</key>
-		<string>SmartGroupTemplate.xml</string>
-		<key>SMART_GROUP_NAME</key>
-		<string>%NAME% - Needs Update (Not v%version%)</string>
-		<key>TARGET_GROUP_FOR_VERSION_CHECK</key>
-		<string>Testing</string> <!-- Group to check within, e.g., 'Testing' or 'All Managed Clients' -->
-
+		<!-- SELFSERVICE_ICON is not in NoPkgID_PolicyTemplate.xml, so no input for it needed here -->
 		<!-- %version% is inherited from parent recipe -->
 	</dict>
 	<key>MinimumVersion</key>
@@ -69,31 +56,16 @@
 				<string>%PKG_CATEGORY%</string>
 			</dict>
 		</dict>
-		<dict>
+		<dict> <!-- This is for the POLICY's category -->
 			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader</string>
 			<key>Arguments</key>
 			<dict>
 				<key>category_name</key>
-				<string>%POLICY_CATEGORY_NAME%</string>
+				<string>%POLICY_CATEGORY%</string> <!-- Make sure this variable name matches what's in your input and template -->
 			</dict>
 		</dict>
-
-		<!-- Create/Update the Smart Group -->
-		<dict>
-			<key>Processor</key>
-			<string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
-			<key>Arguments</key>
-			<dict>
-				<key>computergroup_template</key>
-				<string>%SMART_GROUP_TEMPLATE_PATH%</string>
-				<key>computergroup_name</key>
-				<string>%SMART_GROUP_NAME%</string>
-				<key>replace_group</key> <!-- Always replace to ensure criteria match latest version -->
-				<true/>
-			</dict>
-		</dict>
-
+		<!-- JamfComputerGroupUploader for Smart Group is REMOVED -->
 		<!-- Create/Update the Policy -->
 		<dict>
 			<key>Processor</key>
@@ -104,11 +76,10 @@
 				<string>%POLICY_TEMPLATE_PATH%</string>
 				<key>policy_name</key>
 				<string>%POLICY_NAME%</string>
-				<!-- <key>icon</key><string>%SELFSERVICE_ICON%</string> If your policy template needs it -->
 				<key>replace_policy</key>
 				<true/>
                 <key>GROUP_NAME</key> <!-- For policy scope, matches placeholder in your simple template -->
-                <string>%POLICY_SCOPE_GROUP_NAME%</string>
+                <string>%GROUP_NAME%</string>
 			</dict>
 		</dict>
 	</array>
