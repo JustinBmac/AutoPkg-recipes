@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Comment</key>
-	<string>Uses a generic template to create/update a Jamf policy for Audacity.</string>
+	<string>Manages Audacity package, Smart Group, and Policy in Jamf.</string>
 	<key>Description</key>
-	<string>Downloads Audacity, uploads pkg, and creates/updates 'Audacity(Self Service)' policy using a generic template.</string>
+	<string>Downloads Audacity, uploads pkg, creates/updates 'Needs Update' Smart Group, and creates/updates 'Audacity(Self Service)' policy.</string>
 	<key>Identifier</key>
 	<string>com.github.Justinbmac.jamf.Audacity</string>
 	<key>Input</key>
@@ -14,82 +14,36 @@
 		<key>NAME</key>
 		<string>Audacity</string>
 		<key>PKG_CATEGORY</key>
-		<string>Autopkg Recipes</string> <!-- Category for the package in Jamf -->
+		<string>Autopkg Recipes</string>
+		<key>APPLICATION_TITLE</key>
+		<string>Audacity.app</string> <!-- Exact app bundle name for inventory -->
 
-		<!-- Policy Template and Naming -->
+		<!-- Policy Details -->
 		<key>POLICY_TEMPLATE_PATH</key>
-		<string>SelfServicePolicyTemplate.xml</string>
+		<string>NoPkgID_PolicyTemplate.xml</string> <!-- Using your chosen simple template -->
 		<key>POLICY_NAME</key>
 		<string>Audacity(Self Service)</string>
-		<key>POLICY_CATEGORY_NAME</key>
-		<string>App Install - Self Service</string> <!-- Category for the policy itself -->
-		<key>POLICY_SITE_NAME</key>
+		<key>POLICY_CATEGORY_NAME</key> <!-- For the Policy's category -->
+		<string>App Install - Self Service</string>
+		<key>POLICY_SITE_NAME</key> <!-- Used by Policy and Smart Group -->
 		<string>-1</string> <!-- -1 for "None", or specify site name -->
+		<key>POLICY_SCOPE_GROUP_NAME</key> <!-- Was GROUP_NAME in your simple template -->
+		<string>Testing</string>
 
-		<!-- Self Service Specifics -->
-		<key>SELFSERVICE_DISPLAY_NAME</key>
-		<string>Install Audacity %version%</string>
+		<!-- Self Service Details for Policy -->
 		<key>SELFSERVICE_DESCRIPTION</key>
-		<string>Audacity is a free, open source, cross-platform audio software. It allows you to record and edit audio.
+		<string>Installs Audacity, a free audio editor. Version: %version%.</string>
+		<!-- SELFSERVICE_ICON would be needed if your NoPkgID_PolicyTemplate.xml had it -->
 
-Version: %version%
-Category: %PKG_CATEGORY%</string>
-		<key>SELFSERVICE_ICON</key>
-		<string>Audacity Icon.jpeg</string> <!-- Make sure this icon exists in Jamf > Self Service Icons -->
-		<key>INSTALL_BUTTON_TEXT</key>
-		<string>Install</string>
-		<key>REINSTALL_BUTTON_TEXT</key>
-		<string>Reinstall</string>
-		<key>FEATURE_ON_MAIN_PAGE</key>
-		<string>true</string> <!-- true or false -->
-		<key>SELFSERVICE_NOTIFICATION_TYPE</key>
-		<string>None</string> <!-- None or Self Service -->
-		<key>SELFSERVICE_NOTIFICATION_SUBJECT</key>
-		<string></string> <!-- Only if NOTIFICATION_TYPE is Self Service -->
-		<key>SELFSERVICE_NOTIFICATION_MESSAGE</key>
-		<string></string> <!-- Only if NOTIFICATION_TYPE is Self Service -->
+		<!-- Smart Group Details -->
+		<key>SMART_GROUP_TEMPLATE_PATH</key>
+		<string>SmartGroup-NeedsUpdate-Template.xml</string>
+		<key>SMART_GROUP_NAME</key>
+		<string>%NAME% - Needs Update (Not v%version%)</string>
+		<key>TARGET_GROUP_FOR_VERSION_CHECK</key>
+		<string>Testing</string> <!-- Group to check within, e.g., 'Testing' or 'All Managed Clients' -->
 
-		<!-- Policy Execution Settings -->
-		<key>POLICY_FREQUENCY</key>
-		<string>Ongoing</string>
-		<key>POLICY_TRIGGER_CHECKIN</key>
-		<string>false</string>
-		<key>POLICY_TRIGGER_ENROLLMENT</key>
-		<string>false</string>
-		<key>POLICY_TRIGGER_LOGIN</key>
-		<string>false</string>
-		<key>POLICY_TRIGGER_NETWORK_STATE</key>
-		<string>false</string>
-		<key>POLICY_TRIGGER_OTHER</key>
-		<string></string> <!-- Custom trigger, e.g., "install_audacity" -->
-
-		<!-- Scope -->
-		<key>POLICY_SCOPE_ALL_COMPUTERS</key>
-		<string>true</string>
-		<key>SCOPE_GROUP_NAME</key>
-		<string></string> <!-- Target group for testing, e.g., "Testing" or "Audacity Testers" -->
-		<key>EXCLUSION_GROUP_NAME</key>
-		<string></string> <!-- Optional: Name of an exclusion group -->
-
-		<!-- Scripts (Example: No script for this one) -->
-		<key>SCRIPT_COUNT</key>
-		<string>0</string>
-		<key>SCRIPT_ID</key>
-		<string></string>
-		<key>SCRIPT_NAME</key>
-		<string></string>
-		<key>SCRIPT_PRIORITY</key>
-		<string></string> <!-- BEFORE or AFTER -->
-		<key>SCRIPT_PARAM4</key><string></string> <key>SCRIPT_PARAM5</key><string></string>
-		<key>SCRIPT_PARAM6</key><string></string> <key>SCRIPT_PARAM7</key><string></string>
-		<key>SCRIPT_PARAM8</key><string></string> <key>SCRIPT_PARAM9</key><string></string>
-		<key>SCRIPT_PARAM10</key><string></string> <key>SCRIPT_PARAM11</key><string></string>
-
-		<!-- User Interaction -->
-		<key>USER_INTERACTION_START_MESSAGE</key>
-		<string>Installing Audacity %version%...</string>
-		<key>USER_INTERACTION_FINISH_MESSAGE</key>
-		<string>Audacity %version% installation complete.</string>
+		<!-- %version% is inherited from parent recipe -->
 	</dict>
 	<key>MinimumVersion</key>
 	<string>2.3</string>
@@ -124,23 +78,23 @@ Category: %PKG_CATEGORY%</string>
 				<string>%POLICY_CATEGORY_NAME%</string>
 			</dict>
 		</dict>
-		<!--
-		If SCOPE_GROUP_NAME or EXCLUSION_GROUP_NAME might not exist,
-		you'd add JamfComputerGroupUploader steps here to create them
-		with replace_group: false
-		Example:
+
+		<!-- Create/Update the Smart Group -->
 		<dict>
 			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
 			<key>Arguments</key>
 			<dict>
+				<key>computergroup_template</key>
+				<string>%SMART_GROUP_TEMPLATE_PATH%</string>
 				<key>computergroup_name</key>
-				<string>%SCOPE_GROUP_NAME%</string>
-				<key>replace_group</key> <string>False</string>
-				
+				<string>%SMART_GROUP_NAME%</string>
+				<key>replace_group</key> <!-- Always replace to ensure criteria match latest version -->
+				<true/>
 			</dict>
 		</dict>
-		-->
+
+		<!-- Create/Update the Policy -->
 		<dict>
 			<key>Processor</key>
 			<string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
@@ -150,16 +104,11 @@ Category: %PKG_CATEGORY%</string>
 				<string>%POLICY_TEMPLATE_PATH%</string>
 				<key>policy_name</key>
 				<string>%POLICY_NAME%</string>
-				<key>icon</key>
-				<string>%SELFSERVICE_ICON%</string>
+				<!-- <key>icon</key><string>%SELFSERVICE_ICON%</string> If your policy template needs it -->
 				<key>replace_policy</key>
 				<true/>
-				<!-- Group name for scoping, only used if template's all_computers is false -->
-                <key>GROUP_NAME</key>
-                <string>%SCOPE_GROUP_NAME%</string>
-                <!-- Optional: Exclusion group name -->
-                <key>EXCLUSION_GROUP_NAME_TRIGGER</key> <!-- Special key for JamfPolicyUploader for exclusions -->
-                <string>%EXCLUSION_GROUP_NAME%</string>
+                <key>GROUP_NAME</key> <!-- For policy scope, matches placeholder in your simple template -->
+                <string>%POLICY_SCOPE_GROUP_NAME%</string>
 			</dict>
 		</dict>
 	</array>
