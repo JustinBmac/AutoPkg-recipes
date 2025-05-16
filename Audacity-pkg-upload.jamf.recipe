@@ -20,7 +20,7 @@
 
 		<!-- Policy Details -->
 		<key>POLICY_TEMPLATE_PATH</key>
-		<string>NoPkgID_PolicyTemplate.xml</string> <!-- Using your chosen simple template -->
+		<string>SelfServiceTemplate.xml</string> <!-- Using your chosen simple template -->
 		<key>POLICY_NAME</key>
 		<string>Audacity(Self Service)</string>
 		<key>POLICY_CATEGORY_NAME</key> <!-- For the Policy's category -->
@@ -37,7 +37,7 @@
 
 		<!-- Smart Group Details -->
 		<key>SMART_GROUP_TEMPLATE_PATH</key>
-		<string>SmartGroup-NeedsUpdate-Template.xml</string>
+		<string>SmartGroupTemplate.xml</string>
 		<key>SMART_GROUP_NAME</key>
 		<string>%NAME% - Needs Update (Not v%version%)</string>
 		<key>TARGET_GROUP_FOR_VERSION_CHECK</key>
