@@ -79,7 +79,7 @@
 				<key>replace_policy</key>
 				<true/>
                 <key>GROUP_NAME</key> <!-- For policy scope, matches placeholder in your simple template -->
-                <string>%GROUP_NAME%</string>
+                <string>AutoPKGR Testing Group</string>
 			</dict>
 		</dict>
 	</array>
