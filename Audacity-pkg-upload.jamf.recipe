@@ -18,18 +18,18 @@
 
 		<!-- Policy Details -->
 		<key>POLICY_TEMPLATE_PATH</key>
-		<string>SelfServiceTemplate.xml</string> <!-- Using your simplified template -->
+		<string>SelfServiceTemplate.xml</string> 
 		<key>POLICY_NAME</key>
 		<string>Audacity(Self Service)</string>
-		<key>POLICY_CATEGORY</key> <!-- Matches placeholder in your template -->
+		<key>POLICY_CATEGORY</key> 
 		<string>App Install - Self Service</string>
-		<key>GROUP_NAME</key> <!-- Matches placeholder in your template for policy scope -->
+		<key>GROUP_NAME</key> 
 		<string>Testing</string>
 
 		<!-- Self Service Details for Policy -->
 		<key>SELF_SERVICE_DESCRIPTION</key>
 		<string>Installs Audacity, a free audio editor. Version: %version%.</string>
-		<!-- SELFSERVICE_ICON is not in NoPkgID_PolicyTemplate.xml, so no input for it needed here -->
+		
 		<!-- %version% is inherited from parent recipe -->
 	</dict>
 	<key>MinimumVersion</key>
@@ -78,7 +78,7 @@
 				<string>%POLICY_NAME%</string>
 				<key>replace_policy</key>
 				<true/>
-                <key>GROUP_NAME</key> <!-- For policy scope, matches placeholder in your simple template -->
+                <key>GROUP_NAME</key>
                 <string>AutoPKGR Testing Group</string>
 			</dict>
 		</dict>
